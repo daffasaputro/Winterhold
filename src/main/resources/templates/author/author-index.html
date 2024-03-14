@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Author</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title">Author Index</h1>
+            <form class="search-form" method="get" th:action="@{/author/index}">
+                <input type="text" placeholder="Author Name..." name="authorName" th:value="${authorName}">
+                <button type="submit">Search</button>
+            </form>
+            <a class="insert-button" th:href="@{/author/insertForm}">Add New Author</a>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Age</th>
+                        <th>Status</th>
+                        <th>Education</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="author : ${authorDataDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button"
+                                   th:href="@{/author/book(authorId = ${author.id})}">Books</a>
+                                <a class="action-button"
+                                   th:href="@{/author/updateForm(authorId = ${author.id})}">Edit</a>
+                                <a class="action-button"
+                                   th:href="@{/author/delete(authorId = ${author.id})}">Delete</a>
+                            </div>
+                        </td>
+                        <td th:text="${author.fullName}"></td>
+                        <td th:text="${author.age}"></td>
+                        <td th:text="${author.status}"></td>
+                        <td th:text="${author.education}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/author/index(authorName = ${authorName}, page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

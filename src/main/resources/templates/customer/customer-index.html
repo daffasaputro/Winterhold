@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Customer</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title">Customer Index</h1>
+            <form class="search-form column-form" method="get"
+                  th:action="@{/customer/index(customerMembershipNumber = ${customerMembershipNumber},
+                  customerName = ${customerName})}">
+                <input type="text" placeholder="Number..." name="customerMembershipNumber"
+                       th:value="${customerMembershipNumber}">
+                <input type="text" placeholder="Name..." name="customerName" th:value="${customerName}">
+                <div class="checkbox-form">
+                    <input type="checkbox" name="isExpired" th:checked="${isExpired}" th:value="true">
+                    <label>Membership Already Expired</label>
+                </div>
+                <button type="submit">Search</button>
+            </form>
+            <a class="insert-button" th:href="@{/customer/insertForm}">Add New Customer</a>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Membership Number</th>
+                        <th>Full Name</th>
+                        <th>Expire Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="customer : ${customerDataDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button"
+                                   th:href="@{/customer/updateForm(
+                                   customerMembershipNumber = ${customer.membershipNumber})}">Edit</a>
+                                <a class="action-button"
+                                   th:href="@{/customer/delete(
+                                   customerMembershipNumber = ${customer.membershipNumber})}">Delete</a>
+                                <a class="action-button"
+                                   th:href="@{/customer/extend(
+                                   customerMembershipNumber = ${customer.membershipNumber})}">Extend</a>
+                            </div>
+                        </td>
+                        <td class="clickable-data" th:text="${customer.membershipNumber}"
+                            th:attr="data-id=${customer.membershipNumber}"></td>
+                        <td th:text="${customer.fullName}"></td>
+                        <td th:text="${customer.membershipExpireDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/customer/index(customerMembershipNumber = ${customerMembershipNumber},
+                           customerName = ${customerName},
+                           page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{/customer/customer-popup-box :: popup-box}"></div>
+    <script th:src="@{/js/customer/customer-index.js}"></script>
+</div>
+</body>
+</html>

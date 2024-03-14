@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Loan</title>
+</head>
+<body>
+<div class="box-popup-layer" th:fragment="popup-box">
+    <div class="box-popup-detail">
+        <div class="detail-list">
+            <div class="book-detail">
+                <h3>Book</h3>
+                <div class="list-group">
+                    <label>Title</label>
+                    <p class="title"></p>
+                </div>
+                <div class="list-group">
+                    <label>Category</label>
+                    <p class="category"></p>
+                </div>
+                <div class="list-group">
+                    <label>Author</label>
+                    <p class="author"></p>
+                </div>
+                <div class="list-group">
+                    <label>Floor</label>
+                    <p class="floor"></p>
+                </div>
+                <div class="list-group">
+                    <label>Isle</label>
+                    <p class="isle"></p>
+                </div>
+                <div class="list-group">
+                    <label>Bay</label>
+                    <p class="bay"></p>
+                </div>
+            </div>
+            <div class="book-detail">
+                <h3>Customer</h3>
+                <div class="list-group">
+                    <label>Membership Number</label>
+                    <p class="membership-number"></p>
+                </div>
+                <div class="list-group">
+                    <label>Full Name</label>
+                    <p class="full-name"></p>
+                </div>
+                <div class="list-group">
+                    <label>phone</label>
+                    <p class="phone"></p>
+                </div>
+                <div class="list-group">
+                    <label>Expire Date</label>
+                    <p class="expire-date"></p>
+                </div>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="popup-close-button">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

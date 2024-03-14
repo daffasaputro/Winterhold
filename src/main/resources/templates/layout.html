@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Author</title>
+</head>
+<body>
+<div class="container">
+    <nav th:fragment="nav">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/author/index}">Authors</a>
+        <a th:href="@{/category/index}">Books</a>
+        <a th:href="@{/customer/index}">Customers</a>
+        <a th:href="@{/loan/index}">Loan</a>
+    </nav>
+    <footer th:fragment="footer">
+        <p>Copyright all rights reserved</p>
+    </footer>
+</div>
+</body>
+</html>

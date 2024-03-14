@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Book</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <form class="post-form" method="post" th:action="@{/category/book/upsert}">
+            <h1 class="title">Book Form</h1>
+            <div class="post-input">
+                <label>Code*</label>
+                <input type="text" th:field="${categoryBookUpsertDTO.code}"
+                       th:if="${categoryBookUpsertDTO.code == null}">
+                <input type="text" readonly="readonly" th:field="${categoryBookUpsertDTO.code}"
+                       th:if="${categoryBookUpsertDTO.code != null}">
+                <div class="error-message" th:errors="${categoryBookUpsertDTO.code}"></div>
+            </div>
+            <div class="post-input">
+                <label>Title*</label>
+                <input type="text" th:field="${categoryBookUpsertDTO.title}">
+                <div class="error-message" th:errors="${categoryBookUpsertDTO.title}"></div>
+            </div>
+            <div class="post-input">
+                <label>Category Name</label>
+                <input type="text" readonly="readonly" th:field="${categoryBookUpsertDTO.categoryName}">
+                <div class="error-message" th:errors="${categoryBookUpsertDTO.categoryName}"></div>
+            </div>
+            <div class="post-input">
+                <label>Author*</label>
+                <select th:field="${categoryBookUpsertDTO.authorId}">
+                    <option th:value="null">Select Author...</option>
+                    <option th:each="author : ${authorDropdownDTO}" th:value="${author.value}"
+                            th:text="${author.text}"></option>
+                </select>
+                <div class="error-message"  th:errors="${categoryBookUpsertDTO.authorId}"></div>
+            </div>
+            <div class="post-input">
+                <label>Release Date</label>
+                <input type="date" th:field="${categoryBookUpsertDTO.releaseDate}">
+                <div class="error-message" th:errors="${categoryBookUpsertDTO.releaseDate}"></div>
+            </div>
+            <div class="post-input">
+                <label>Total Page</label>
+                <input type="text" th:field="${categoryBookUpsertDTO.totalPage}">
+                <div class="error-message" th:errors="${categoryBookUpsertDTO.totalPage}"></div>
+            </div>
+            <div class="post-input">
+                <label>Summary</label>
+                <textarea th:field="${categoryBookUpsertDTO.summary}"></textarea>
+                <div class="error-message" th:errors="${categoryBookUpsertDTO.summary}"></div>
+            </div>
+            <div class="post-button">
+                <button type="submit">Save</button>
+                <a th:href="@{/category/book(categoryName = ${categoryBookUpsertDTO.categoryName})}">Back</a>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

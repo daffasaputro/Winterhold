@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Customer</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <form class="post-form" method="post" th:action="@{/customer/upsert}">
+            <h1 class="title">Customer Form</h1>
+            <input type="hidden" th:field="${customerUpsertDTO.membershipExpireDate}">
+            <div class="post-input">
+                <label>Membership Number*</label>
+                <input type="text" th:field="${customerUpsertDTO.membershipNumber}"
+                       th:if="${customerUpsertDTO.membershipNumber == null}">
+                <input type="text" readonly="readonly" th:field="${customerUpsertDTO.membershipNumber}"
+                       th:if="${customerUpsertDTO.membershipNumber != null}">
+                <div class="error-message" th:errors="${customerUpsertDTO.membershipNumber}"></div>
+            </div>
+            <div class="post-input">
+                <label>First Name*</label>
+                <input type="text" th:field="${customerUpsertDTO.firstName}">
+                <div class="error-message" th:errors="${customerUpsertDTO.firstName}"></div>
+            </div>
+            <div class="post-input">
+                <label>Last Name</label>
+                <input type="text" th:field="${customerUpsertDTO.lastName}">
+                <div class="error-message" th:errors="${customerUpsertDTO.lastName}"></div>
+            </div>
+            <div class="post-input">
+                <label>Birth Date*</label>
+                <input type="date" th:field="${customerUpsertDTO.birthDate}">
+                <div class="error-message" th:errors="${customerUpsertDTO.birthDate}"></div>
+            </div>
+            <div class="post-input">
+                <label>Gender*</label>
+                <div class="radio-group">
+                    <div>
+                        <Label>Male</Label>
+                        <input type="radio" th:field="${customerUpsertDTO.gender}" th:value="Male">
+                    </div>
+                    <div>
+                        <Label>Female</Label>
+                        <input type="radio" th:field="${customerUpsertDTO.gender}" th:value="Female">
+                    </div>
+                </div>
+                <div class="error-message" th:errors="${customerUpsertDTO.gender}"></div>
+            </div>
+            <div class="post-input">
+                <label>Phone</label>
+                <input type="text" th:field="${customerUpsertDTO.phone}">
+                <div class="error-message" th:errors="${customerUpsertDTO.phone}"></div>
+            </div>
+            <div class="post-input">
+                <label>Address</label>
+                <textarea th:field="${customerUpsertDTO.address}"></textarea>
+                <div class="error-message" th:errors="${customerUpsertDTO.address}"></div>
+            </div>
+            <div class="post-button">
+                <button type="submit">Save</button>
+                <a th:href="@{/customer/index}">Back to Index</a>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Customer</title>
+</head>
+<body>
+<div class="box-popup-layer" th:fragment="popup-box">
+    <div class="box-popup-list">
+        <div class="list-group">
+            <label>Membership Number</label>
+            <p class="membership-number"></p>
+        </div>
+        <div class="list-group">
+            <label>Full Name</label>
+            <p class="full-name"></p>
+        </div>
+        <div class="list-group">
+            <label>Birth Date</label>
+            <p class="birth-date"></p>
+        </div>
+        <div class="list-group">
+            <label>Gender</label>
+            <p class="gender"></p>
+        </div>
+        <div class="list-group">
+            <label>Phone</label>
+            <p class="phone"></p>
+        </div>
+        <div class="list-group">
+            <label>Address</label>
+            <p class="address"></p>
+        </div>
+        <div class="button-group">
+            <button class="close-button">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

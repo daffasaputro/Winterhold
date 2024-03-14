@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Loan</title>
+</head>
+<body>
+<div class="form-popup-layer" th:fragment="popup-form">
+    <div class="form-popup-box">
+        <form class="post-form">
+            <input type="hidden" class="loan-id">
+            <div class="post-input">
+                <label>Customer*</label>
+                <div class="error-group">
+                    <select class="customer-dropdown"></select>
+                    <div class="error-message-popup" data-for="customer"></div>
+                </div>
+            </div>
+            <div class="post-input">
+                <label>Book*</label>
+                <div class="error-group">
+                    <select class="book-dropdown"></select>
+                    <div class="error-message-popup" data-for="book"></div>
+                </div>
+            </div>
+            <div class="post-input">
+                <label>Loan Date*</label>
+                <div class="error-group">
+                    <input type="date" class="loan-date">
+                    <div class="error-message-popup" data-for="loanDate"></div>
+                </div>
+            </div>
+            <div class="post-input">
+                <label>Note*</label>
+                <div class="error-group">
+                    <input type="text" class="note">
+                    <div class="error-message-popup" data-for="note"></div>
+                </div>
+            </div>
+            <div class="post-button">
+                <button type="submit" class="popup-save-button">Save</button>
+                <button type="button" class="popup-close-button">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

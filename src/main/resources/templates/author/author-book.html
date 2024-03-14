@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Author</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title">Author Book</h1>
+            <table class="author-detail">
+                <tr>
+                    <td>Full Name</td>
+                    <td>
+                        <p th:text="${authorBookHeaderDTO.fullName}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Birth Date</td>
+                    <td>
+                        <p th:text="${authorBookHeaderDTO.birthDate}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Deceased Date</td>
+                    <td>
+                        <p th:text="${authorBookHeaderDTO.deceasedDate}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Education</td>
+                    <td>
+                        <p th:text="${authorBookHeaderDTO.education}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Summary</td>
+                    <td>
+                        <p th:text="${authorBookHeaderDTO.summary}"></p>
+                    </td>
+                </tr>
+            </table>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Book Title</th>
+                        <th>Category</th>
+                        <th>Is Borrowed</th>
+                        <th>Release Date</th>
+                        <th>Total Page</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="authorBook : ${authorBookDTO}">
+                        <td th:text="${authorBook.title}"></td>
+                        <td th:text="${authorBook.categoryName}"></td>
+                        <td th:text="${authorBook.isBorrowed}"></td>
+                        <td th:text="${authorBook.releaseDate}"></td>
+                        <td th:text="${authorBook.totalPage}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/author/book(authorId = ${authorBookHeaderDTO.authorId},
+                           page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

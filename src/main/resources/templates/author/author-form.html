@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Author</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <form class="post-form" method="post" th:action="@{/author/upsert}">
+            <h1 class="title">Author Form</h1>
+            <input type="hidden" th:field="${authorUpsertDTO.id}">
+            <div class="post-input">
+                <label>Title*</label>
+                <input type="text" th:field="${authorUpsertDTO.title}">
+                <div class="error-message" th:errors="${authorUpsertDTO.title}"></div>
+            </div>
+            <div class="post-input">
+                <label>First Name*</label>
+                <input type="text" th:field="${authorUpsertDTO.firstName}">
+                <div class="error-message" th:errors="${authorUpsertDTO.firstName}"></div>
+            </div>
+            <div class="post-input">
+                <label>Last Name</label>
+                <input type="text" th:field="${authorUpsertDTO.lastName}">
+                <div class="error-message" th:errors="${authorUpsertDTO.lastName}"></div>
+            </div>
+            <div class="post-input">
+                <label>Birth Date*</label>
+                <input type="date" th:field="${authorUpsertDTO.birthDate}">
+                <div class="error-message" th:errors="${authorUpsertDTO.birthDate}"></div>
+            </div>
+            <div class="post-input">
+                <label>Deceased Date</label>
+                <input type="date" th:field="${authorUpsertDTO.deceasedDate}">
+                <div class="error-message" th:errors="${authorUpsertDTO.deceasedDate}">Test</div>
+            </div>
+            <div class="post-input">
+                <label>Education</label>
+                <input type="text" th:field="${authorUpsertDTO.education}">
+                <div class="error-message" th:errors="${authorUpsertDTO.education}"></div>
+            </div>
+            <div class="post-input">
+                <label>Summary</label>
+                <textarea th:field="${authorUpsertDTO.summary}"></textarea>
+                <div class="error-message" th:errors="${authorUpsertDTO.summary}"></div>
+            </div>
+            <div class="post-button">
+                <button type="submit">Save</button>
+                <a th:href="@{/author/index}">Back to Index</a>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+</div>
+</body>
+</html>

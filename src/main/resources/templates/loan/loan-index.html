@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Loan</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title">Loan Index</h1>
+            <form class="search-form column-form" method="get"
+                  th:action="@{/loan/index(bookTitle = ${bookTitle}, customerName = ${customerName})}">
+                <input type="text" placeholder="Book Title..." name="bookTitle" th:value="${bookTitle}">
+                <input type="text" placeholder="Customer Name..." name="customerName" th:value="${customerName}">
+                <div class="checkbox-form">
+                    <input type="checkbox" name="isPassedDueDate" th:checked="${isPassedDueDate}" th:value="true">
+                    <label>Passed Due Date</label>
+                </div>
+                <button type="submit">Search</button>
+            </form>
+            <a class="insert-button">New Loan</a>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Book Title</th>
+                        <th>Customer Name</th>
+                        <th>Loan Date</th>
+                        <th>Due Date</th>
+                        <th>Return Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="loan : ${loanDataDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button detail-button" th:attr="data-id=${loan.id}">Detail</a>
+                                <a class="action-button edit-button" th:attr="data-id=${loan.id}">Edit</a>
+                                <a class="action-button"
+                                   th:href="@{/loan/returnBook(loanId = ${loan.id}, bookCode = ${loan.bookCode})}"
+                                   th:if="${loan.returnDate == null}">Return</a>
+                            </div>
+                        </td>
+                        <td th:text="${loan.bookTitle}"></td>
+                        <td th:text="${loan.customerName}"></td>
+                        <td th:text="${loan.loanDate}"></td>
+                        <td th:text="${loan.dueDate}"></td>
+                        <td th:text="${loan.returnDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/customer/index(bookTitle = ${bookTitle},
+                           customerName = ${customerName},
+                           page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{/loan/loan-popup-form :: popup-form}"></div>
+    <div th:replace="~{/loan/loan-popup-box :: popup-box}"></div>
+    <script th:src="@{/js/loan/loan-index.js}"></script>
+</div>
+</body>
+</html>

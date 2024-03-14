@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <title>Book</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{layout :: nav}"></nav>
+    <main>
+        <div class="user-list">
+            <h1 class="title" th:text="|List of ${categoryBookHeaderDTO.name} Books|"></h1>
+            <form class="search-form column-form" method="get"
+                  th:action="@{/category/book(categoryName = ${categoryBookHeaderDTO.name},
+                  bookTitle = ${bookTitle},
+                  bookAuthor = ${bookAuthor})}">
+                <input type="hidden" name="categoryName" th:value="${categoryBookHeaderDTO.name}">
+                <input type="text" placeholder="Title..." name="bookTitle" th:value="${bookTitle}">
+                <input type="text" placeholder="Author..." name="bookAuthor" th:value="${bookAuthor}">
+                <div class="checkbox-form">
+                    <input type="checkbox" name="isAvailable" th:checked="${isAvailable}" th:value="true">
+                    <label>Is Available</label>
+                </div>
+                <button type="submit">Search</button>
+            </form>
+            <a class="insert-button"
+               th:href="@{/category/book/insertForm(categoryName = ${categoryBookHeaderDTO.name})}"
+               th:text="|Insert New ${categoryBookHeaderDTO.name} Book|"></a>
+            <div class="content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>Is Borrowed</th>
+                        <th>Release Date</th>
+                        <th>Total Page</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="categoryBook : ${categoryBookDTO}">
+                        <td>
+                            <div class="action">
+                                <a class="action-button summary-button" th:attr="data-id=${categoryBook.code}"
+                                   th:if="${categoryBook.summary != ''}">Summary</a>
+                                <a class="action-button"
+                                   th:href="@{/category/book/updateForm(
+                               categoryName = ${categoryBookHeaderDTO.name},
+                               bookCode = ${categoryBook.code})}">Edit</a>
+                                <a class="action-button"
+                                   th:href="@{/category/book/delete(bookCode = ${categoryBook.code},
+                                   categoryName = ${categoryBookHeaderDTO.name})}">Delete</a>
+                            </div>
+                        </td>
+                        <td th:text="${categoryBook.title}"></td>
+                        <td th:text="${categoryBook.author}"></td>
+                        <td th:text="${categoryBook.isBorrowed}"></td>
+                        <td th:text="${categoryBook.releaseDate}"></td>
+                        <td th:text="${categoryBook.totalPage}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div th:text="|Page ${page} of ${totalPage}|"></div>
+                    <div th:if="${totalPage != 0}">
+                        <a th:each="currentPage : ${#numbers.sequence(1, totalPage)}"
+                           th:text="${currentPage}"
+                           th:href="@{/category/book(categoryName = ${categoryBookHeaderDTO.name},
+                           bookTitle = ${bookTitle},
+                           bookAuthor = ${bookAuthor},
+                           page = ${currentPage})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{/category/category-book-popup-box :: popup-box}"></div>
+    <script th:src="@{/js/category/category-book.js}"></script>
+</div>
+</body>
+</html>
